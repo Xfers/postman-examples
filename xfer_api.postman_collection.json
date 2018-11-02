@@ -1207,7 +1207,7 @@
 										},
 										{
 											"key": "status",
-											"value": "completed, Refunded, Expired, Cancelled, Pending, Accepted, On_hold",
+											"value": "Completed, Refunded, Expired, Cancelled, Pending, Accepted, On_hold",
 											"description": "`OPTIONAL` | Only show transactions of that status. Only “completed”, “refunded”, “expired”, “cancelled”, “pending”, “accepted”, “on_hold” allowed. You can add additional types by separating with a comma. Note that putting “completed” will also return transactions with “paid” - you can take them to be the same.\t"
 										}
 									]
