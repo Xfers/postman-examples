@@ -1170,7 +1170,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{base-api-url}}api/v3/user/activities?limit=50&start_date=2018-07-04T11%3A49%3A58%2B08%3A00 &end_date=2018-10-30T11%3A49%3A58%2B08%3A00 &offset=0&types=Credit Card, Charge, Payout, Deposit,Withdrawal&status=completed, Refunded, Expired, Cancelled, Pending, Accepted, On_hold",
+									"raw": "{{base-api-url}}api/v3/user/activities?limit=50&start_date=2018-07-04T11%3A49%3A58%2B08%3A00 &end_date=2018-10-30T11%3A49%3A58%2B08%3A00 &offset=0&types=Credit Card, Charge, Payout, Deposit,Withdrawal&status=Completed, Refunded, Expired, Cancelled, Pending, Accepted, On_hold",
 									"host": [
 										"{{base-api-url}}api"
 									],
