@@ -1162,7 +1162,7 @@
 									},
 									{
 										"key": "X-XFERS-USER-API-KEY",
-										"value": "ARsxJCk3htNfy8ym1gKvuqQeFYgrFzXF8YpsSCL_Gnz"
+										"value": "{{user-api-token}}"
 									}
 								],
 								"body": {
