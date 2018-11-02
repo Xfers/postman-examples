@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "71c3abdd-cbf1-407d-8e54-5b14ec1eead0",
-		"name": "Xfers Postman API",
+		"name": "Xfers API",
 		"description": "![Xfers Developer API Documentation](https://www.xfers.io/images/xfersLogo.png)\n\nWelcome to Xfers' API.  \n\n# API Keys\nTo start developing, you need a sandbox account, please contact [sales@xfers.io](mailto:sales@xfers.io) if you don't have them yet.\n\nXfers uses API keys to allow access to the API. You can get your API key from your dashboard [Settings > API Tokens](https://sandbox-id.xfers.com/api_tokens) page. You will be redirected to a page similar to image below:\n\n[![xfers_api_keys](http://docs.xfers.io/images/xfers-api-keys.png)](http://docs.xfers.io/images/xfers-api-keys.png)\n\nYou will need to include these API keys in the headers of your request\nAll endpoints are in HTTPS. Please do not attempt to hit our endpoint in HTTP.\n\n### Types of API Keys\n\nType | Description  |\n---- |  ------------ |\nX-XFERS-APP-API-KEY | Used Only for Registration of New User\nX-XFERS-USER-API-KEY| The majority of our APIs uses this\n\n# Integration Guides\n[Overview on integrating Xfers Wallet](https://www.lucidchart.com/publicSegments/view/0a2fe26d-3556-4dc5-a63a-b7b5adde1fb6/image.png)  \n[Xfers Connect Flow](https://www.lucidchart.com/publicSegments/view/017a4cda-6a5d-4013-ae4f-6daf81175157/image.png)  \n[Top up Flow](https://www.lucidchart.com/publicSegments/view/c29b0c13-0573-44b4-91f6-fe489cfa964e/image.png)  \n[Transactional Flow](https://www.lucidchart.com/publicSegments/view/23b4e3b6-dce1-4b98-a2aa-30fc8648db75/image.png)  \n\n# Setting up with Postman\n\nTo Setup using postman, choose your suitable environment and click `Run in Postman`.\nThen, update the environment variable of the API keys.\n\n![Postman Edit Script 1](https://duaw26jehqd4r.cloudfront.net/items/3v020B0e181J113D0P0R/Screen%20Shot%202018-11-02%20at%2015.11.29.png?v=5b81e47d)  \n![Postman Edit Script 2](https://duaw26jehqd4r.cloudfront.net/items/173z2N1l0g2A012w240W/Screen%20Shot%202018-11-02%20at%2015.12.15.png?v=38f80a97)\n\n# Environments\n\nCountry \\ Environment | Sandbox | Production\n----------- | ------- | -----------\nIndonesia | https://sandbox-id.xfers.com/api/v3 | https://id.xfers.com/api/v3\nSingapore | https://sandbox.xfers.io/api/v3 | https://www.xfers.io/api/v3\n\nNotes:\n- Your platform will have separate API keys for each environment.\n- Data created or modified in each environment will not affect the other.\n- Data cannot be transfered from one environment to the other.\n\n# Changelog\n\n=================== 2 October, 2018 ===================\n\n**Summary** \nRelease of the first version of the Xfers API Docs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -941,8 +941,8 @@
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
-										"value": "application/x-www-form-urlencoded",
-										"type": "text"
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
 									}
 								],
 								"body": {
@@ -969,15 +969,11 @@
 									]
 								},
 								"url": {
-									"raw": "https://sandbox-id.xfers.com/api/v3/user/balance_callback",
-									"protocol": "https",
+									"raw": "{{base-api-url}}api/v3/user/balance_callback",
 									"host": [
-										"sandbox-id",
-										"xfers",
-										"com"
+										"{{base-api-url}}api"
 									],
 									"path": [
-										"api",
 										"v3",
 										"user",
 										"balance_callback"
@@ -1174,7 +1170,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{base-api-url}}api/v3/user/activities?limit=50&start_date=2018-01-01T11%3A49%3A58%2B08%3A00 &end_date=2018-10-30T11%3A49%3A58%2B08%3A00 &offset=0&types=Credit Card, Charge, Payout, Deposit,Withdrawal&status=Completed, Refunded, Expired, Cancelled, Pending, Accepted, On_hold",
+									"raw": "{{base-api-url}}api/v3/user/activities?limit=50&start_date=2018-07-04T11%3A49%3A58%2B08%3A00 &end_date=2018-10-30T11%3A49%3A58%2B08%3A00 &offset=0&types=Credit Card, Charge, Payout, Deposit,Withdrawal&status=Completed, Refunded, Expired, Cancelled, Pending, Accepted, On_hold",
 									"host": [
 										"{{base-api-url}}api"
 									],
@@ -1191,7 +1187,7 @@
 										},
 										{
 											"key": "start_date",
-											"value": "2018-01-01T11%3A49%3A58%2B08%3A00 ",
+											"value": "2018-07-04T11%3A49%3A58%2B08%3A00 ",
 											"description": "`OPTIONAL` | Earliest date to query"
 										},
 										{
