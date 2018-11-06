@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "d12e6e4c-1433-4e92-9fe9-208cd7ad1629",
 		"name": "Disbursement Product",
-		"description": "![Xfers Developer API Documentation](https://www.xfers.io/images/xfersLogo.png)\n\nWelcome to Xfers' API.  \n\n# Integration Guides\n[Overview on integrating Xfers Wallet](https://www.lucidchart.com/publicSegments/view/0a2fe26d-3556-4dc5-a63a-b7b5adde1fb6/image.png)  \n[Xfers Connect Flow](https://www.lucidchart.com/publicSegments/view/017a4cda-6a5d-4013-ae4f-6daf81175157/image.png)  \n[Top up Flow](https://www.lucidchart.com/publicSegments/view/c29b0c13-0573-44b4-91f6-fe489cfa964e/image.png)  \n[Transactional Flow](https://www.lucidchart.com/publicSegments/view/23b4e3b6-dce1-4b98-a2aa-30fc8648db75/image.png)  \n\n# Environments\n\nCountry \\ Environment | Sandbox | Production\n----------- | ------- | -----------\nIndonesia | https://sandbox-id.xfers.com/ | https://id.xfers.com/\nSingapore | https://sandbox.xfers.io/ | https://www.xfers.io/\n\nNotes:\n- Your platform will have separate API keys for each environment.\n- Data created or modified in each environment will not affect the other.\n- Data cannot be transfered from one environment to the other.\n\n# API Keys\nTo start developing, you need a sandbox account, please contact [sales@xfers.io](mailto:sales@xfers.io) if you don't have them yet.\n\nXfers uses API keys to allow access to the API. You can get your API key from your dashboard [Settings > API Tokens](https://sandbox-id.xfers.com/api_tokens) page. You will be redirected to a page similar to image below:\n\n[![xfers_api_keys](http://docs.xfers.io/images/xfers-api-keys.png)](http://docs.xfers.io/images/xfers-api-keys.png)\n\nYou will need to include these API keys in the headers of your request\nAll endpoints are in HTTPS. Please do not attempt to hit our endpoint in HTTP.\n\n### Types of API Keys\n\nType | Description  |\n---- |  ------------ |\nX-XFERS-APP-API-KEY | Used Only for Registration of New User\nX-XFERS-USER-API-KEY| The majority of our APIs uses this\n\n# Setting up with Postman\n\nTo Setup using postman, choose your suitable environment and click `Run in Postman`.\n\nThen, update the environment variable of the API keys.\n\n![Postman Edit Script 1](https://duaw26jehqd4r.cloudfront.net/items/3X1m0K45213a1A441P1O/Screen%20Shot%202018-11-02%20at%2015.11.29.png?v=29c92a85)  \n  \n![Postman Edit Script 2](https://duaw26jehqd4r.cloudfront.net/items/2N3s1g2i1B052M0U2I28/Screen%20Shot%202018-11-06%20at%2010.59.15.png?v=a0609071)\n\n# Changelog\n\n=================== 2 October, 2018 ===================\n\n**Summary** \nRelease of the first version of the Xfers API Docs",
+		"description": "![Xfers Developer API Documentation](https://www.xfers.io/images/xfersLogo.png)\n\nWelcome to Xfers' API.  \n\n# Environments\n\nCountry \\ Environment | Sandbox | Production\n----------- | ------- | -----------\nIndonesia | https://sandbox-id.xfers.com/ | https://id.xfers.com/\nSingapore | https://sandbox.xfers.io/ | https://www.xfers.io/\n\nNotes:\n- Your platform will have separate API keys for each environment.\n- Data created or modified in each environment will not affect the other.\n- Data cannot be transfered from one environment to the other.\n\n# API Keys\nTo start developing, you need a sandbox account, please contact [sales@xfers.io](mailto:sales@xfers.io) if you don't have them yet.\n\nXfers uses API keys to allow access to the API. You can get your API key from your dashboard [Settings > API Tokens](https://sandbox-id.xfers.com/api_tokens) page. You will be redirected to a page similar to image below:\n\n[![xfers_api_keys](http://docs.xfers.io/images/xfers-api-keys.png)](http://docs.xfers.io/images/xfers-api-keys.png)\n\nYou will need to include these API keys in the headers of your request\nAll endpoints are in HTTPS. Please do not attempt to hit our endpoint in HTTP.\n\n### Types of API Keys\n\nType | Description  |\n---- |  ------------ |\nX-XFERS-APP-API-KEY | Used Only for Registration of New User\nX-XFERS-USER-API-KEY| The majority of our APIs uses this\n\n# Setting up with Postman\n\nTo Setup using postman, choose your suitable environment and click `Run in Postman`.\n\nThen, update the environment variable of the API keys.\n\n![Postman Edit Script 1](https://duaw26jehqd4r.cloudfront.net/items/3X1m0K45213a1A441P1O/Screen%20Shot%202018-11-02%20at%2015.11.29.png?v=29c92a85)  \n  \n![Postman Edit Script 2](https://duaw26jehqd4r.cloudfront.net/items/2N3s1g2i1B052M0U2I28/Screen%20Shot%202018-11-06%20at%2010.59.15.png?v=a0609071)\n\n# Changelog\n\n=================== 6 October, 2018 ===================\n\n**Summary** \nRelease of the first version of the Xfers Disbursement Product Docs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -504,21 +504,15 @@
 							"type": "text"
 						},
 						{
-							"key": "express",
-							"value": "true",
-							"description": "`OPTIONAL` | `true` or `false`.  \nCurrently only used for Singapore.   \nExpress Withdrawal has fees but will arrive at recipient bank within 24 hrs.  \nStandard withdrawal is free but takes 2-3 business day to arrive at recipient bank.  \nDefaults to `false`",
+							"key": "user_api_token",
+							"value": "{{user-api-token}}",
+							"description": "`REQUIRED` | api token of the user/ private ledger\n",
 							"type": "text"
 						},
 						{
 							"key": "notify_url",
 							"value": "https:/www.example.com/update",
 							"description": "`OPTIONAL` | URL to receive callback notifications on withdrawal status changes.\t",
-							"type": "text"
-						},
-						{
-							"key": "user_api_token",
-							"value": "{{user-api-token}}",
-							"description": "`OPTIONAL` | Use this param if you want to withdraw to another user’s bank account instead of your own.\n\n",
 							"type": "text"
 						}
 					]
@@ -536,7 +530,7 @@
 						"withdraw"
 					]
 				},
-				"description": "Withdrawal Time varies upon country. \nFor Indonesia, withdrawal time is instantenous.\nFor Singapore, withdrawal time depends on whether it is an express withdrawal.\n\n#### Withdrawal on Behalf\nIf you wish to withdraw to a bank account not belonging to you, add in user_api_token in the params.\n\nBehind the scenes, Xfers does a payout of funds from your Xfers account to that user’s Xfers account, followed by a withdrawal. This is required for compliance purposes as we cannot directly withdraw funds to a bank account not belonging to you.\n\nTo clarify this:\n\nPlacing of xfers_api_token | Flow | Remark\n--------------- |  ----------- | -----\nmerchant's token in header, user's token in body| merchant's Xfers account -> user's Xfers account -> user's bank Account | We call this `Withdrawal on Behalf`\nuser's token in header, nothing in body| user's Xfers account -> user's bank Account | this is the usual usage\nmerchant's token in header, nothing in body| merchant's Xfers account -> merchant's bank Account | This is usually done via Xfers Dashboard\n\n#### Withdrawal notification\nWe highly recommend you to use callback_url in this API to be notified for withdrawal request status.\n\nIf you put a notify_url in your withdrawal, we will send you the callback with the following parameter when the withdrawal is `completed` or `failed`. You need to acknowledge the callback by responding with a HTTP 200 status when succesfully processed.\n\nWe will send `completed` callback after already reconfirmed with bank that the money has been sent.\n\nName | Type | Description | Value\n---- | ---- | ----------- | -----\naccount_no | string | bank account no of withdrawal | 0393123432\namount | string | withdrawal amount | 125000\nbank_abbrev | string | bank abbreviation of withdrawal | DBS\nexpress | string |  Express/normal withdrawal | true\nfees | string | Withdrawal Fee | 0\nid | string | Xfers Generated Unique Key | contract_dd5a6b83\nidempotency_id | string | The key you put in the withdrawal request | AZ0001\nstatus | string | Status of transaction | \"completed\" or \"failed\"\nvalue_date | string | Date of withdrawal completed as provided by partner bank. will only available for \"completed\" status | 2018-09-12"
+				"description": "This API will help you to do a withdrawal to a a bank account\n\n#### Withdrawal notification\nWe highly recommend you to use callback_url in this API to be notified for withdrawal request status.\n\nIf you put a notify_url in your withdrawal, we will send you the callback with the following parameter when the withdrawal is `completed` or `failed`. You need to acknowledge the callback by responding with a HTTP 200 status when succesfully processed.\n\nWe will send `completed` callback after already reconfirmed with bank that the money has been sent.\n\nName | Type | Description | Value\n---- | ---- | ----------- | -----\naccount_no | string | bank account no of withdrawal | 0393123432\namount | string | withdrawal amount | 125000\nbank_abbrev | string | bank abbreviation of withdrawal | DBS\nexpress | string |  Express/normal withdrawal | true\nfees | string | Withdrawal Fee | 0\nid | string | Xfers Generated Unique Key | contract_dd5a6b83\nidempotency_id | string | The key you put in the withdrawal request | AZ0001\nstatus | string | Status of transaction | \"completed\" or \"failed\"\nvalue_date | string | Date of withdrawal completed as provided by partner bank. will only available for \"completed\" status | 2018-09-12"
 			},
 			"response": [
 				{
@@ -744,7 +738,8 @@
 						"withdrawal_requests",
 						"<withdrawal_request_id>"
 					]
-				}
+				},
+				"description": "This API will be used to get the current status of withdrawal request.  \nIt is useful if you want to check with Xfers again about the status of your withdrawal request in case there is something wrong with the callback of the withdrawal request status."
 			},
 			"response": []
 		}
