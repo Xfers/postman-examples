@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "956a5071-842a-434d-862b-95f02e683a12",
+		"_postman_id": "c65cb36c-c2a2-43d4-9113-c43d61b9a2cd",
 		"name": "Xfers API",
-		"description": "![Xfers Developer API Documentation](https://www.xfers.io/images/xfersLogo.png)\n\nWelcome to Xfers' API.  \n\n# API Keys\nTo start developing, you need a sandbox account, please contact [sales@xfers.io](mailto:sales@xfers.io) if you don't have them yet.\n\nXfers uses API keys to allow access to the API. You can get your API key from your dashboard [Settings > API Tokens](https://sandbox-id.xfers.com/api_tokens) page. You will be redirected to a page similar to image below:\n\n[![xfers_api_keys](http://docs.xfers.io/images/xfers-api-keys.png)](http://docs.xfers.io/images/xfers-api-keys.png)\n\nYou will need to include these API keys in the headers of your request\nAll endpoints are in HTTPS. Please do not attempt to hit our endpoint in HTTP.\n\n### Types of API Keys\n\nType | Description  |\n---- |  ------------ |\nX-XFERS-APP-API-KEY | Used Only for Registration of New User\nX-XFERS-USER-API-KEY| The majority of our APIs uses this\n\n# Integration Guides\n[Overview on integrating Xfers Wallet](https://www.lucidchart.com/publicSegments/view/0a2fe26d-3556-4dc5-a63a-b7b5adde1fb6/image.png)  \n[Xfers Connect Flow](https://www.lucidchart.com/publicSegments/view/017a4cda-6a5d-4013-ae4f-6daf81175157/image.png)  \n[Top up Flow](https://www.lucidchart.com/publicSegments/view/c29b0c13-0573-44b4-91f6-fe489cfa964e/image.png)  \n[Transactional Flow](https://www.lucidchart.com/publicSegments/view/23b4e3b6-dce1-4b98-a2aa-30fc8648db75/image.png)  \n\n# Setting up with Postman\n\nTo Setup using postman, choose your suitable environment and click `Run in Postman`.\nThen, update the environment variable of the API keys.\n\n![Postman Edit Script 1](https://duaw26jehqd4r.cloudfront.net/items/3v020B0e181J113D0P0R/Screen%20Shot%202018-11-02%20at%2015.11.29.png?v=5b81e47d)  \n![Postman Edit Script 2](https://duaw26jehqd4r.cloudfront.net/items/173z2N1l0g2A012w240W/Screen%20Shot%202018-11-02%20at%2015.12.15.png?v=38f80a97)\n\n# Environments\n\nCountry \\ Environment | Sandbox | Production\n----------- | ------- | -----------\nIndonesia | https://sandbox-id.xfers.com/api/v3 | https://id.xfers.com/api/v3\nSingapore | https://sandbox.xfers.io/api/v3 | https://www.xfers.io/api/v3\n\nNotes:\n- Your platform will have separate API keys for each environment.\n- Data created or modified in each environment will not affect the other.\n- Data cannot be transfered from one environment to the other.\n\n# Changelog\n\n=================== 2 October, 2018 ===================\n\n**Summary** \nRelease of the first version of the Xfers API Docs",
+		"description": "![Xfers Developer API Documentation](https://www.xfers.io/images/xfersLogo.png)\n\nWelcome to Xfers' API.  \n\n# Integration Guides\n[Overview on integrating Xfers Wallet](https://www.lucidchart.com/publicSegments/view/0a2fe26d-3556-4dc5-a63a-b7b5adde1fb6/image.png)  \n[Xfers Connect Flow](https://www.lucidchart.com/publicSegments/view/017a4cda-6a5d-4013-ae4f-6daf81175157/image.png)  \n[Top up Flow](https://www.lucidchart.com/publicSegments/view/c29b0c13-0573-44b4-91f6-fe489cfa964e/image.png)  \n[Transactional Flow](https://www.lucidchart.com/publicSegments/view/23b4e3b6-dce1-4b98-a2aa-30fc8648db75/image.png)  \n\n# Environments\n\nCountry \\ Environment | Sandbox | Production\n----------- | ------- | -----------\nIndonesia | https://sandbox-id.xfers.com/ | https://id.xfers.com/\nSingapore | https://sandbox.xfers.io/ | https://www.xfers.io/\n\nNotes:\n- Your platform will have separate API keys for each environment.\n- Data created or modified in each environment will not affect the other.\n- Data cannot be transfered from one environment to the other.\n\n# API Keys\nTo start developing, you need a sandbox account, please contact [sales@xfers.io](mailto:sales@xfers.io) if you don't have them yet.\n\nXfers uses API keys to allow access to the API. You can get your API key from your dashboard [Settings > API Tokens](https://sandbox-id.xfers.com/api_tokens) page. You will be redirected to a page similar to image below:\n\n[![xfers_api_keys](http://docs.xfers.io/images/xfers-api-keys.png)](http://docs.xfers.io/images/xfers-api-keys.png)\n\nYou will need to include these API keys in the headers of your request\nAll endpoints are in HTTPS. Please do not attempt to hit our endpoint in HTTP.\n\n### Types of API Keys\n\nType | Description  |\n---- |  ------------ |\nX-XFERS-APP-API-KEY | Used Only for Registration of New User\nX-XFERS-USER-API-KEY| The majority of our APIs uses this\n\n# Setting up with Postman\n\nTo Setup using postman, choose your suitable environment and click `Run in Postman`.\n\nThen, update the environment variable of the API keys.\n\n![Postman Edit Script 1](https://duaw26jehqd4r.cloudfront.net/items/3X1m0K45213a1A441P1O/Screen%20Shot%202018-11-02%20at%2015.11.29.png?v=29c92a85)  \n  \n![Postman Edit Script 2](https://duaw26jehqd4r.cloudfront.net/items/2N3s1g2i1B052M0U2I28/Screen%20Shot%202018-11-06%20at%2010.59.15.png?v=a0609071)\n\n# Changelog\n\n=================== 2 October, 2018 ===================\n\n**Summary** \nRelease of the first version of the Xfers API Docs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -72,7 +72,7 @@
 										"signup_login"
 									]
 								},
-								"description": "This API is used to start user registration by inputting phone number.  \nAfter this API is called, an OTP SMS will be sent to that number.  \n\nYou can re-trigger this API again to re-send OTP to the same phone number after 1 minute.  \n\nThis OTP will expire in 10 minutes.  \n\nThe SMS format will be:\n```\n[XFERS] Your OTP is 123456. This is to set up payments for `merchant_name` . If this is not done by you, please report to http://bit.ly/XfersSupport\n```\n\nThis API uses a pair of public Key and secret key.  \nThe header of this API uses public key called `X-XFERS-APP-API-KEY`.  \nYou will need `X-XFERS-APP-SECRET-KEY`  to generate signature in the request body."
+								"description": "This API is used to start user registration by inputting phone number.  \nAfter this API is called, an OTP SMS will be sent to that number.  \n\nYou can re-trigger this API again to re-send OTP to the same phone number after 1 minute.  \n\nThis OTP will expire in 10 minutes.  \n\nThe SMS format will be:\n```\n[XFERS] Your OTP is 123456. This is to set up payments for `merchant_name` . If this is not done by you, please report to http://bit.ly/XfersSupport\n```\n\nThis API uses a pair of public key and secret key.  \nThe header of this API uses public key called `X-XFERS-APP-API-KEY`.  \nYou will need `X-XFERS-APP-SECRET-KEY`  to generate signature in the request body."
 							},
 							"response": [
 								{
@@ -319,7 +319,7 @@
 										}
 									]
 								},
-								"description": "After user receives the OTP SMS, merchant's app should capture the OTP and pass it to Xfers via this API.  \nThis API will finish the registration and returns `user_api_token`.  \n`user_api_token` is used to control the user's account.  \nYou should save the `user_api_token` for future usage. (to be put in the X-XFERS-USER-API-KEY in headers of other APIs)  \n\nIt will also return a is_fully_verified if they already have an Xfers account and have completed our KYC process.  \n\nThis API uses a pair of public Key and secret key.  \nThe header of this API uses public key called `X-XFERS-APP-API-KEY`.  \nYou will need `X-XFERS-APP-SECRET-KEY` to generate signature in the request body."
+								"description": "After user receives the OTP SMS, merchant's app should capture the OTP and pass it to Xfers via this API.  \nThis API will finish the registration and returns `user_api_token`.  \n`user_api_token` is used to control the user's account.  \nYou should save the `user_api_token` for future usage. (to be put in the X-XFERS-USER-API-KEY in headers of other APIs)  \n\nIt will also return a is_fully_verified if they already have an Xfers account and have completed our KYC process.  \n\nThis API uses a pair of public key and secret key.  \nThe header of this API uses public key called `X-XFERS-APP-API-KEY`.  \nYou will need `X-XFERS-APP-SECRET-KEY` to generate signature in the request body."
 							},
 							"response": [
 								{
@@ -578,8 +578,8 @@
 										},
 										{
 											"key": "gender",
-											"value": "male / female",
-											"description": "`OPTIONAL` | Gender",
+											"value": "male",
+											"description": "`OPTIONAL` | Gender.  Possible values: `male` / `female`",
 											"type": "text"
 										},
 										{
@@ -686,8 +686,8 @@
 										},
 										{
 											"key": "blood_type",
-											"value": "‘A’, ‘B’, 'AB’, or 'O’",
-											"description": "`OPTIONAL` | Account holder’s blood type, without rhesus.\t",
+											"value": "A",
+											"description": "`OPTIONAL` | Account holder’s blood type, without rhesus. Possible values:  ‘A’, ‘B’, 'AB’, or 'O’\t",
 											"type": "text"
 										},
 										{
@@ -722,14 +722,14 @@
 										},
 										{
 											"key": "religion",
-											"value": "'Islam’, 'Katholik’, 'Kristen Protestan’, 'Hindu’, 'Budha’, 'Kong Hu Cu’, or 'Aliran Kepercayaan’",
-											"description": "`OPTIONAL` | Account holder’s religion according to his/her KTP.\t",
+											"value": "Islam",
+											"description": "`OPTIONAL` | Account holder’s religion according to his/her KTP.  Possible Values: 'Islam’, 'Katholik’, 'Kristen Protestan’, 'Hindu’, 'Budha’, 'Kong Hu Cu’, or 'Aliran Kepercayaan’\n  ",
 											"type": "text"
 										},
 										{
 											"key": "marital_status",
-											"value": "'Belum Kawin’, 'Kawin’, 'Janda’, or 'Duda’",
-											"description": "`OPTIONAL` | Account holder’s marital status according to his/her KTP.\t",
+											"value": "Belum Kawin",
+											"description": "`OPTIONAL` | Account holder’s marital status according to his/her KTP.  Possible Values: 'Belum Kawin’, 'Kawin’, 'Janda’, or 'Duda’",
 											"type": "text"
 										},
 										{
@@ -3416,12 +3416,7 @@
 						"id": "feba5831-14e0-4e41-ac0c-635a2b944fb9",
 						"type": "text/javascript",
 						"exec": [
-							"pm.environment.set(\"app-api-key\", \"<input_your_app_api_key_here>\");",
-							"pm.environment.set(\"app-secret-key\", \"<input_your_app_secret_key_here>\");",
-							"pm.environment.set(\"user-api-key\", \"<input_your_user_api_key_here>\");",
-							"",
-							"// edit the below after you finished the get_user_token API",
-							"pm.environment.set(\"user-api-token\", \"<input_your_user_api_token_here>\");"
+							""
 						]
 					}
 				},
@@ -3928,8 +3923,11 @@
 				},
 				{
 					"name": "Mock Topup",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "DASHBOARD",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -3952,7 +3950,15 @@
 				"id": "9ad5b913-5aae-4249-b811-6ea3d013dfb5",
 				"type": "text/javascript",
 				"exec": [
-					""
+					"pm.environment.set(\"base-api-url\", \"<input_your_environment_url_here>\");",
+					"// https://sandbox-id.xfers.com/ or https://sandbox.xfers.io/",
+					"",
+					"pm.environment.set(\"app-api-key\", \"<input_your_app_api_key_here>\");",
+					"pm.environment.set(\"app-secret-key\", \"<input_your_app_secret_key_here>\");",
+					"pm.environment.set(\"user-api-key\", \"<input_your_user_api_key_here>\");",
+					"",
+					"// edit the below after you finished the get_user_token API",
+					"pm.environment.set(\"user-api-token\", \"<input_your_user_api_token_here>\");"
 				]
 			}
 		},
