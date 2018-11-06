@@ -1,18 +1,35 @@
 {
 	"info": {
-		"_postman_id": "f6483a17-d529-401d-a0cc-fee2049139c3",
-		"name": "Julo-newest",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"_postman_id": "d12e6e4c-1433-4e92-9fe9-208cd7ad1629",
+		"name": "Disbursement Product",
+		"description": "![Xfers Developer API Documentation](https://www.xfers.io/images/xfersLogo.png)\n\nWelcome to Xfers' API.  \n\n# Integration Guides\n[Overview on integrating Xfers Wallet](https://www.lucidchart.com/publicSegments/view/0a2fe26d-3556-4dc5-a63a-b7b5adde1fb6/image.png)  \n[Xfers Connect Flow](https://www.lucidchart.com/publicSegments/view/017a4cda-6a5d-4013-ae4f-6daf81175157/image.png)  \n[Top up Flow](https://www.lucidchart.com/publicSegments/view/c29b0c13-0573-44b4-91f6-fe489cfa964e/image.png)  \n[Transactional Flow](https://www.lucidchart.com/publicSegments/view/23b4e3b6-dce1-4b98-a2aa-30fc8648db75/image.png)  \n\n# Environments\n\nCountry \\ Environment | Sandbox | Production\n----------- | ------- | -----------\nIndonesia | https://sandbox-id.xfers.com/ | https://id.xfers.com/\nSingapore | https://sandbox.xfers.io/ | https://www.xfers.io/\n\nNotes:\n- Your platform will have separate API keys for each environment.\n- Data created or modified in each environment will not affect the other.\n- Data cannot be transfered from one environment to the other.\n\n# API Keys\nTo start developing, you need a sandbox account, please contact [sales@xfers.io](mailto:sales@xfers.io) if you don't have them yet.\n\nXfers uses API keys to allow access to the API. You can get your API key from your dashboard [Settings > API Tokens](https://sandbox-id.xfers.com/api_tokens) page. You will be redirected to a page similar to image below:\n\n[![xfers_api_keys](http://docs.xfers.io/images/xfers-api-keys.png)](http://docs.xfers.io/images/xfers-api-keys.png)\n\nYou will need to include these API keys in the headers of your request\nAll endpoints are in HTTPS. Please do not attempt to hit our endpoint in HTTP.\n\n### Types of API Keys\n\nType | Description  |\n---- |  ------------ |\nX-XFERS-APP-API-KEY | Used Only for Registration of New User\nX-XFERS-USER-API-KEY| The majority of our APIs uses this\n\n# Setting up with Postman\n\nTo Setup using postman, choose your suitable environment and click `Run in Postman`.\n\nThen, update the environment variable of the API keys.\n\n![Postman Edit Script 1](https://duaw26jehqd4r.cloudfront.net/items/3X1m0K45213a1A441P1O/Screen%20Shot%202018-11-02%20at%2015.11.29.png?v=29c92a85)  \n  \n![Postman Edit Script 2](https://duaw26jehqd4r.cloudfront.net/items/2N3s1g2i1B052M0U2I28/Screen%20Shot%202018-11-06%20at%2010.59.15.png?v=a0609071)\n\n# Changelog\n\n=================== 2 October, 2018 ===================\n\n**Summary** \nRelease of the first version of the Xfers API Docs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Register Account",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f70afb8e-f7c1-440d-82bc-c45b243be884",
+						"exec": [
+							"phone_no = \"+6287785725657\"",
+							"pm.environment.set(\"$phone_no\", phone_no);",
+							"",
+							"secret_key = pm.environment.get(\"app-secret-key\");",
+							"pm.environment.set(\"$signature\", CryptoJS.enc.Hex.stringify(CryptoJS.SHA1(phone_no + secret_key)));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "X-XFERS-APP-API-KEY",
-						"value": "TjETqu8GsJPGgbxEN85jw8cBcEFs8p6HqsQ3dEcDgDw"
+						"value": "{{app-api-key}}"
 					},
 					{
 						"key": "Content-Type",
@@ -20,11 +37,34 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\"phone_no\" : \"+6287785725657\", \"signature\" : \"0218525f26d5d248d2ca835036dac2f3ecef3c85\"}"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone_no",
+							"value": "{{$phone_no}}",
+							"description": "`REQUIRED` | user's phone number",
+							"type": "text"
+						},
+						{
+							"key": "signature",
+							"value": "{{$signature}}",
+							"description": "`REQUIRED` | SHA1-hex of (phone_no + X-XFERS-APP_SECRET_KEY)",
+							"type": "text"
+						}
+					]
 				},
-				"url": "https://sandbox-id.xfers.com/api/v3/authorize/private_wallet",
-				"description": "Generate Xfers API token without OTP.\n\nNote that the header is APP-API-TOKEN and can be taken from our UI of APP-API-TOKEN\n\nthe signature is the SHA1-hex of (phone_no + APP_SECRET_KEY)"
+				"url": {
+					"raw": "{{base-api-url}}api/v3/authorize/private_wallet",
+					"host": [
+						"{{base-api-url}}api"
+					],
+					"path": [
+						"v3",
+						"authorize",
+						"private_wallet"
+					]
+				},
+				"description": "This API is used to start private ledger registration by inputting phone number.  \n\nThis API uses a pair of public key and secret key.  \nThe header of this API uses public key called `X-XFERS-APP-API-KEY`.  \nYou will need `X-XFERS-APP-SECRET-KEY`  to generate signature in the request body."
 			},
 			"response": [
 				{
@@ -34,20 +74,32 @@
 						"header": [
 							{
 								"key": "X-XFERS-APP-API-KEY",
-								"value": "TjETqu8GsJPGgbxEN85jw8cBcEFs8p6HqsQ3dEcDgDw",
-								"disabled": false
+								"value": "TjETqu8GsJPGgbxEN85jw8cBcEFs8p6HqsQ3dEcDgDw"
 							},
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"disabled": false
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"phone_no\" : \"+6287785725657\", \"signature\" : \"0218525f26d5d248d2ca835036dac2f3ecef3c85\"}"
 						},
-						"url": "https://sandbox-id.xfers.com/api/v3/authorize/private_wallet"
+						"url": {
+							"raw": "https://sandbox-id.xfers.com/api/v3/authorize/private_wallet",
+							"protocol": "https",
+							"host": [
+								"sandbox-id",
+								"xfers",
+								"com"
+							],
+							"path": [
+								"api",
+								"v3",
+								"authorize",
+								"private_wallet"
+							]
+						}
 					},
 					"status": "OK",
 					"code": 200,
@@ -170,7 +222,7 @@
 					],
 					"cookie": [
 						{
-							"expires": "Fri Aug 02 2019 09:24:11 GMT+0700 (WIB)",
+							"expires": "Invalid Date",
 							"httpOnly": true,
 							"domain": "xfers.com",
 							"path": "/",
@@ -179,7 +231,7 @@
 							"key": "__cfduid"
 						},
 						{
-							"expires": "Tue Jan 19 2038 03:14:07 GMT+0700 (WIB)",
+							"expires": "Invalid Date",
 							"httpOnly": true,
 							"domain": "sandbox-id.xfers.com",
 							"path": "/",
@@ -193,13 +245,13 @@
 			]
 		},
 		{
-			"name": "add_bank_account",
+			"name": "Add Bank Account",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "X-XFERS-USER-API-KEY",
-						"value": "ZaEYnqEpmFwHh6kzxoP5XxvHn9gawHsVzzSit8QR_T4"
+						"value": "{{user-api-token}}"
 					},
 					{
 						"key": "Content-Type",
@@ -207,207 +259,50 @@
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\"account_no\": \"0393123432\", \"bank\":\"DBS\", \"account_holder_name\": \"PROD ONLY\"}\n\n"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "account_no",
+							"value": "1680366060",
+							"description": "`REQUIRED` | bank account no",
+							"type": "text"
+						},
+						{
+							"key": "bank",
+							"value": "BCA",
+							"description": "`REQUIRED` | bank abbreviation",
+							"type": "text"
+						},
+						{
+							"key": "account_holder_name",
+							"value": "PROD ONLY",
+							"description": "`REQUIRED` | Name of bank account holder name. put `PROD_ONLY` in Indo Sandbox\n",
+							"type": "text"
+						}
+					]
 				},
-				"url": "https://sandbox-id.xfers.com/api/v3/user/bank_account"
+				"url": {
+					"raw": "{{base-api-url}}api/v3/user/bank_account",
+					"host": [
+						"{{base-api-url}}api"
+					],
+					"path": [
+						"v3",
+						"user",
+						"bank_account"
+					]
+				},
+				"description": "This API will be used to attach a new bank account to a user.  \nYou will be able to withdraw user's balance to this bank account.  \n\nIn Indonesia Production, This API will return the detected_name as provided from the bank.  \nThe account_holder_name you provided and detected_name needs to be similar (doesn't need to be 100% match)."
 			},
 			"response": [
 				{
-					"name": "example success response",
+					"name": "success response",
 					"originalRequest": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "X-XFERS-USER-API-KEY",
-								"value": "ZaEYnqEpmFwHh6kzxoP5XxvHn9gawHsVzzSit8QR_T4",
-								"disabled": false
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"disabled": false
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"account_no\": \"0393123432\", \"bank\":\"DBS\", \"account_holder_name\": \"PROD ONLY\"}\n\n"
-						},
-						"url": "https://sandbox-id.xfers.com/api/v3/user/bank_account"
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*",
-							"name": "Access-Control-Allow-Origin",
-							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
-						},
-						{
-							"key": "Access-Control-Request-Method",
-							"value": "*",
-							"name": "Access-Control-Request-Method",
-							"description": "Used when issuing a preflight request to let the server know what HTTP method will be used when the actual request is made."
-						},
-						{
-							"key": "CF-RAY",
-							"value": "458f937d1cc2aab0-SIN",
-							"name": "CF-RAY",
-							"description": "Custom header"
-						},
-						{
-							"key": "Cache-Control",
-							"value": "max-age=0, private, must-revalidate",
-							"name": "Cache-Control",
-							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive",
-							"name": "Connection",
-							"description": "Options that are desired for the connection"
-						},
-						{
-							"key": "Content-Encoding",
-							"value": "gzip",
-							"name": "Content-Encoding",
-							"description": "The type of encoding used on the data."
-						},
-						{
-							"key": "Content-Length",
-							"value": "161",
-							"name": "Content-Length",
-							"description": "The length of the response body in octets (8-bit bytes)"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Wed, 12 Sep 2018 04:19:29 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"ce02385ad465ae391886f48007179f66\"",
-							"name": "ETag",
-							"description": "An identifier for a specific version of a resource, often a message digest"
-						},
-						{
-							"key": "Expect-CT",
-							"value": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
-							"name": "Expect-CT",
-							"description": "Custom header"
-						},
-						{
-							"key": "Server",
-							"value": "cloudflare",
-							"name": "Server",
-							"description": "A name for the server"
-						},
-						{
-							"key": "Strict-Transport-Security",
-							"value": "max-age=31536000; includeSubDomains;",
-							"name": "Strict-Transport-Security",
-							"description": "A HSTS Policy informing the HTTP client how long to cache the HTTPS only policy and whether this applies to subdomains."
-						},
-						{
-							"key": "Vary",
-							"value": "Accept-Encoding",
-							"name": "Vary",
-							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
-						},
-						{
-							"key": "X-Content-Type-Options",
-							"value": "nosniff",
-							"name": "X-Content-Type-Options",
-							"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
-						},
-						{
-							"key": "X-Frame-Options",
-							"value": "SAMEORIGIN",
-							"name": "X-Frame-Options",
-							"description": "Clickjacking protection: \"deny\" - no rendering within a frame, \"sameorigin\" - no rendering if origin mismatch"
-						},
-						{
-							"key": "X-Request-Id",
-							"value": "2f4ed5a1-bb92-462a-a0f2-8b6e008dacab",
-							"name": "X-Request-Id",
-							"description": "Custom header"
-						},
-						{
-							"key": "X-Runtime",
-							"value": "0.102790",
-							"name": "X-Runtime",
-							"description": "Custom header"
-						},
-						{
-							"key": "X-XSS-Protection",
-							"value": "1; mode=block",
-							"name": "X-XSS-Protection",
-							"description": "Cross-site scripting (XSS) filter"
-						}
-					],
-					"cookie": [
-						{
-							"expires": "Fri Aug 02 2019 09:24:11 GMT+0700 (WIB)",
-							"httpOnly": true,
-							"domain": "xfers.com",
-							"path": "/",
-							"secure": false,
-							"value": "ddc8a2935ec83ae347a0839defd1a42f71533201851",
-							"key": "__cfduid"
-						},
-						{
-							"expires": "Tue Jan 19 2038 03:14:07 GMT+0700 (WIB)",
-							"httpOnly": true,
-							"domain": "sandbox-id.xfers.com",
-							"path": "/",
-							"secure": true,
-							"value": "cde57d2b58ece5ff5176bf849d7c6cda",
-							"key": "_xfers_session"
-						}
-					],
-					"body": "[{\"id\":644,\"account_no\":\"0393123432\",\"account_holder_name\":\"PROD ONLY\",\"detected_name\":\"PROD ONLY\",\"verification_status\":\"pending\",\"verified\":true,\"bank_abbrev\":\"DBS\",\"usage\":\"all\"}]"
-				}
-			]
-		},
-		{
-			"name": "submit withdrawal",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "X-XFERS-USER-API-KEY",
-						"value": "e3pxu39WqWhcVB5-uWdWgpxjH9yFxqCi9DCTpi9Fcqz"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"amount\":\"100123.0\", \"idempotency_id\":\"JULO_1234_qwertyuiop\", \"user_api_token\":\"ZaEYnqEpmFwHh6kzxoP5XxvHn9gawHsVzzSit8QR_T4\", \"notify_url\": \"www.example.com\"}\n\n"
-				},
-				"url": "https://sandbox-id.xfers.com/api/v3/user/bank_account/644/withdraw",
-				"description": "notify_url is for giving the callback to your server. This is the callback in the case of the transaction success or fails.\n\nThe X-XFERS-USER-API-KEY is the api-key in the header is the Julo/merchant's API token\n\nThe user_api_token is the api-key of the user as already generated in the Register Account/ private_wallet API"
-			},
-			"response": [
-				{
-					"name": "example success response",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-XFERS-USER-API-KEY",
-								"value": "e3pxu39WqWhcVB5-uWdWgpxjH9yFxqCi9DCTpi9Fcqz"
+								"value": "Qh9fors4WmjTfeisB9qEAdsAzEXgeHVQF3-NsE5yi-c"
 							},
 							{
 								"key": "Content-Type",
@@ -416,9 +311,23 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"amount\":\"100123.0\", \"idempotency_id\":\"JULO_1234_qwertyuiop\", \"user_api_token\":\"ZaEYnqEpmFwHh6kzxoP5XxvHn9gawHsVzzSit8QR_T4\", \"notify_url\": \"www.example.com\"}\n\n"
+							"raw": "{\"account_no\": \"1680366060\", \"bank\":\"BCA\"}"
 						},
-						"url": "https://sandbox-id.xfers.com/api/v3/user/bank_account/644/withdraw"
+						"url": {
+							"raw": "https://sandbox-id.xfers.com/api/v3/user/bank_account",
+							"protocol": "https",
+							"host": [
+								"sandbox-id",
+								"xfers",
+								"com"
+							],
+							"path": [
+								"api",
+								"v3",
+								"user",
+								"bank_account"
+							]
+						}
 					},
 					"status": "OK",
 					"code": 200,
@@ -438,7 +347,7 @@
 						},
 						{
 							"key": "CF-RAY",
-							"value": "458f99343818aab0-SIN",
+							"value": "44484f02f8b9aa50-SIN",
 							"name": "CF-RAY",
 							"description": "Custom header"
 						},
@@ -462,7 +371,7 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "198",
+							"value": "162",
 							"name": "Content-Length",
 							"description": "The length of the response body in octets (8-bit bytes)"
 						},
@@ -474,13 +383,13 @@
 						},
 						{
 							"key": "Date",
-							"value": "Wed, 12 Sep 2018 04:23:23 GMT",
+							"value": "Fri, 03 Aug 2018 11:05:21 GMT",
 							"name": "Date",
 							"description": "The date and time that the message was sent"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"e0748c231e41495da94702a1c3b8bdcb\"",
+							"value": "W/\"2807eca1afd45da8008e774195b4a5d0\"",
 							"name": "ETag",
 							"description": "An identifier for a specific version of a resource, often a message digest"
 						},
@@ -522,13 +431,13 @@
 						},
 						{
 							"key": "X-Request-Id",
-							"value": "acc58bdd-6b86-472e-9834-3db0e0647ecb",
+							"value": "15761853-178b-4a7c-bcbd-a1e1ac572267",
 							"name": "X-Request-Id",
 							"description": "Custom header"
 						},
 						{
 							"key": "X-Runtime",
-							"value": "0.157159",
+							"value": "0.078563",
 							"name": "X-Runtime",
 							"description": "Custom header"
 						},
@@ -541,7 +450,7 @@
 					],
 					"cookie": [
 						{
-							"expires": "Fri Aug 02 2019 09:24:11 GMT+0700 (WIB)",
+							"expires": "Invalid Date",
 							"httpOnly": true,
 							"domain": "xfers.com",
 							"path": "/",
@@ -550,7 +459,7 @@
 							"key": "__cfduid"
 						},
 						{
-							"expires": "Tue Jan 19 2038 03:14:07 GMT+0700 (WIB)",
+							"expires": "Invalid Date",
 							"httpOnly": true,
 							"domain": "sandbox-id.xfers.com",
 							"path": "/",
@@ -559,9 +468,320 @@
 							"key": "_xfers_session"
 						}
 					],
-					"body": "{\"available_balance\":999899876.0,\"ledger_balance\":999899876.0,\"withdrawal_request\":{\"payout_invoice_id\":\"JULO_1234_qwertyuiop\",\"account_no\":\"0393123432\",\"bank_abbrev\":\"DBS\",\"amount\":100123,\"fees\":0,\"express\":true,\"status\":\"pending\"}}"
+					"body": "[{\"id\":175,\"account_no\":\"1680366060\",\"account_holder_name\":\"PROD ONLY\",\"detected_name\":\"PROD ONLY\",\"verification_status\":\"pending\",\"verified\":true,\"bank_abbrev\":\"BCA\",\"usage\":\"all\"}]"
 				}
 			]
+		},
+		{
+			"name": "Create Withdrawal Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XFERS-USER-API-KEY",
+						"value": "{{user-api-key}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "amount",
+							"value": "120000.0",
+							"description": "`REQUIRED` | Transaction Amount",
+							"type": "text"
+						},
+						{
+							"key": "idempotency_id",
+							"value": "Order_1234",
+							"description": "`REQUIRED` | Unique ref no provided by you to prevent double transaction, this cannot be repeated, Currently only activated for Indonesia\t",
+							"type": "text"
+						},
+						{
+							"key": "express",
+							"value": "true",
+							"description": "`OPTIONAL` | `true` or `false`.  \nCurrently only used for Singapore.   \nExpress Withdrawal has fees but will arrive at recipient bank within 24 hrs.  \nStandard withdrawal is free but takes 2-3 business day to arrive at recipient bank.  \nDefaults to `false`",
+							"type": "text"
+						},
+						{
+							"key": "notify_url",
+							"value": "https:/www.example.com/update",
+							"description": "`OPTIONAL` | URL to receive callback notifications on withdrawal status changes.\t",
+							"type": "text"
+						},
+						{
+							"key": "user_api_token",
+							"value": "{{user-api-token}}",
+							"description": "`OPTIONAL` | Use this param if you want to withdraw to another user’s bank account instead of your own.\n\n",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base-api-url}}api/v3/user/bank_account/175/withdraw",
+					"host": [
+						"{{base-api-url}}api"
+					],
+					"path": [
+						"v3",
+						"user",
+						"bank_account",
+						"175",
+						"withdraw"
+					]
+				},
+				"description": "Withdrawal Time varies upon country. \nFor Indonesia, withdrawal time is instantenous.\nFor Singapore, withdrawal time depends on whether it is an express withdrawal.\n\n#### Withdrawal on Behalf\nIf you wish to withdraw to a bank account not belonging to you, add in user_api_token in the params.\n\nBehind the scenes, Xfers does a payout of funds from your Xfers account to that user’s Xfers account, followed by a withdrawal. This is required for compliance purposes as we cannot directly withdraw funds to a bank account not belonging to you.\n\nTo clarify this:\n\nPlacing of xfers_api_token | Flow | Remark\n--------------- |  ----------- | -----\nmerchant's token in header, user's token in body| merchant's Xfers account -> user's Xfers account -> user's bank Account | We call this `Withdrawal on Behalf`\nuser's token in header, nothing in body| user's Xfers account -> user's bank Account | this is the usual usage\nmerchant's token in header, nothing in body| merchant's Xfers account -> merchant's bank Account | This is usually done via Xfers Dashboard\n\n#### Withdrawal notification\nWe highly recommend you to use callback_url in this API to be notified for withdrawal request status.\n\nIf you put a notify_url in your withdrawal, we will send you the callback with the following parameter when the withdrawal is `completed` or `failed`. You need to acknowledge the callback by responding with a HTTP 200 status when succesfully processed.\n\nWe will send `completed` callback after already reconfirmed with bank that the money has been sent.\n\nName | Type | Description | Value\n---- | ---- | ----------- | -----\naccount_no | string | bank account no of withdrawal | 0393123432\namount | string | withdrawal amount | 125000\nbank_abbrev | string | bank abbreviation of withdrawal | DBS\nexpress | string |  Express/normal withdrawal | true\nfees | string | Withdrawal Fee | 0\nid | string | Xfers Generated Unique Key | contract_dd5a6b83\nidempotency_id | string | The key you put in the withdrawal request | AZ0001\nstatus | string | Status of transaction | \"completed\" or \"failed\"\nvalue_date | string | Date of withdrawal completed as provided by partner bank. will only available for \"completed\" status | 2018-09-12"
+			},
+			"response": [
+				{
+					"name": "success response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XFERS-USER-API-KEY",
+								"value": "Qh9fors4WmjTfeisB9qEAdsAzEXgeHVQF3-NsE5yi-c"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"amount\": \"120000.0\"}"
+						},
+						"url": {
+							"raw": "https://sandbox-id.xfers.com/api/v3/user/bank_account/175/withdraw",
+							"protocol": "https",
+							"host": [
+								"sandbox-id",
+								"xfers",
+								"com"
+							],
+							"path": [
+								"api",
+								"v3",
+								"user",
+								"bank_account",
+								"175",
+								"withdraw"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Access-Control-Request-Method",
+							"value": "*",
+							"name": "Access-Control-Request-Method",
+							"description": "Used when issuing a preflight request to let the server know what HTTP method will be used when the actual request is made."
+						},
+						{
+							"key": "CF-RAY",
+							"value": "44486c663d0170aa-SIN",
+							"name": "CF-RAY",
+							"description": "Custom header"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "max-age=0, private, must-revalidate",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"name": "Connection",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"name": "Content-Encoding",
+							"description": "The type of encoding used on the data."
+						},
+						{
+							"key": "Content-Length",
+							"value": "243",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 03 Aug 2018 11:25:25 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"252e41ceb8ea496a9b5c45efea172b08\"",
+							"name": "ETag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "Expect-CT",
+							"value": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+							"name": "Expect-CT",
+							"description": "Custom header"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubDomains;",
+							"name": "Strict-Transport-Security",
+							"description": "A HSTS Policy informing the HTTP client how long to cache the HTTPS only policy and whether this applies to subdomains."
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding",
+							"name": "Vary",
+							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff",
+							"name": "X-Content-Type-Options",
+							"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "SAMEORIGIN",
+							"name": "X-Frame-Options",
+							"description": "Clickjacking protection: \"deny\" - no rendering within a frame, \"sameorigin\" - no rendering if origin mismatch"
+						},
+						{
+							"key": "X-Request-Id",
+							"value": "a7f2f4a1-34f7-4037-b56b-080aecda2db5",
+							"name": "X-Request-Id",
+							"description": "Custom header"
+						},
+						{
+							"key": "X-Runtime",
+							"value": "0.492311",
+							"name": "X-Runtime",
+							"description": "Custom header"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block",
+							"name": "X-XSS-Protection",
+							"description": "Cross-site scripting (XSS) filter"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Invalid Date",
+							"httpOnly": true,
+							"domain": "xfers.com",
+							"path": "/",
+							"secure": false,
+							"value": "ddc8a2935ec83ae347a0839defd1a42f71533201851",
+							"key": "__cfduid"
+						},
+						{
+							"expires": "Invalid Date",
+							"httpOnly": true,
+							"domain": "sandbox-id.xfers.com",
+							"path": "/",
+							"secure": true,
+							"value": "cde57d2b58ece5ff5176bf849d7c6cda",
+							"key": "_xfers_session"
+						}
+					],
+					"body": "{\"available_balance\":10000.32,\"ledger_balance\":10000.32,\"withdrawal_request\":{\"id\":23404,\"account_no\":\"1680366060\",\"bank_abbrev\":\"BCA\",\"amount\":120000.0,\"fees\":20000.0,\"express\":true,\"status\":\"paid\",\"arrival\":\"03 Aug 2018 -  7:25 PM\",\"wallet_name\":\"Xfers\",\"comment\":\"108762074709\"},\"one_time_withdrawal\":false}"
+				}
+			]
+		},
+		{
+			"name": "Get Withdrawal Request",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-XFERS-USER-API-KEY",
+						"value": "{{user-api-token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base-api-url}}api/v3/user/bank_account/withdrawal_requests/<withdrawal_request_id>",
+					"host": [
+						"{{base-api-url}}api"
+					],
+					"path": [
+						"v3",
+						"user",
+						"bank_account",
+						"withdrawal_requests",
+						"<withdrawal_request_id>"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "38a4546a-7cca-4b57-9d44-af7713376a63",
+				"type": "text/javascript",
+				"exec": [
+					"pm.environment.set(\"base-api-url\", \"<input_your_environment_url_here>\");",
+					"// https://sandbox-id.xfers.com/ or https://sandbox.xfers.io/",
+					"",
+					"pm.environment.set(\"app-api-key\", \"<input_your_app_api_key_here>\");",
+					"pm.environment.set(\"app-secret-key\", \"<input_your_app_secret_key_here>\");",
+					"pm.environment.set(\"user-api-key\", \"<input_your_user_api_key_here>\");",
+					"",
+					"// edit the below after you finished the get_user_token API",
+					"pm.environment.set(\"user-api-token\", \"<input_your_user_api_token_here>\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "21c3ccfc-c0e9-4493-8422-e04e2b21bc91",
+				"type": "text/javascript",
+				"exec": [
+					"pm.environment.set(\"app-api-key\", \"HPFsP1cFD597nLnx_tB3NhDsxLxSzzTFXSCqyPoLQ7E\");",
+					"pm.environment.set(\"app-secret-key\", \"MvaH9btx5nC2vEr85C2YkzF2LQt5wiAWKz2AJxSd8Bo\");",
+					"pm.environment.set(\"user-api-key\", \"cDyzesHkcKPLF9nv6t89S2xZYHZ6y6VfdHiC33Dya-o\");",
+					"",
+					"// edit the below after you finished the get_user_token API",
+					"pm.environment.set(\"user-api-token\", \"xp1ccumVkD2_QTMgnxnQuvwq3shGxS-hiLuVrKRQM-Q\");"
+				]
+			}
 		}
 	]
 }
